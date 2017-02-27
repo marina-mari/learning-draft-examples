@@ -17,7 +17,7 @@ namespace UnitTestProject1
             driver = new ChromeDriver();
         }
         [Test]
-        public void FirstTest()
+        public void goto_url()
         {
             driver.Url = "http://google.com";
            
