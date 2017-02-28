@@ -12,14 +12,21 @@ namespace test1
     public class UnitTest5
     {
         IWebDriver driver;
+        
+        
+
         [SetUp]
         public void TestMethod1()
         {
-            driver = new FirefoxDriver();
+            
+            FirefoxOptions options = new FirefoxOptions();
+            options.UseLegacyImplementation = true;
+            driver = new FirefoxDriver(options);
+            
         }
 
         [Test]
-        public void loginform_ff()
+        public void OldMethodForFF()
 
         {
             driver.Url = "http://localhost/litecart/admin/";
