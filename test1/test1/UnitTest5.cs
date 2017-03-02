@@ -12,21 +12,31 @@ namespace test1
     public class UnitTest5
     {
         IWebDriver driver;
-        
-        
+       // FirefoxOptions options = new FirefoxOptions();
+
+
 
         [SetUp]
         public void TestMethod1()
         {
-            
-            FirefoxOptions options = new FirefoxOptions();
-            options.UseLegacyImplementation = true;
-            driver = new FirefoxDriver(options);
-            
+
+            // FirefoxOptions options = new FirefoxOptions();
+            //options.UseLegacyImplementation = true;
+            //driver = new FirefoxDriver(options);
+
+            FirefoxBinary binary = new FirefoxBinary(@"C:\Program Files\Nightly\firefox.exe");
+            driver = new FirefoxDriver(binary, new FirefoxProfile());
+
+
+            //options.BrowserExecutableLocation = @"C:\Program Files\Nightly\firefox.exe";
+            //IWebDriver driver = new FirefoxDriver(options);
+
+            //driver = new FirefoxDriver();
+
         }
 
         [Test]
-        public void OldMethodForFF()
+        public void PointPathToBrowser()
 
         {
             driver.Url = "http://localhost/litecart/admin/";
