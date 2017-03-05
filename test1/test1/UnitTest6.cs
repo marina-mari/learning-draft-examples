@@ -45,7 +45,7 @@ namespace test1
             var test6 = driver.FindElement(By.CssSelector("button[type=submit][name^=lost]"));
             //find element by combination of div tag, class "content" and tag "td" inside <div> </div>
             var test8 = driver.FindElement(By.CssSelector("button[type=submit][name^=lost]"));
-            // find element by combination first element of list
+            // find element by combination first element of list. The same for last child, li:last-child, li:nth-child
             var test7 = driver.FindElement(By.CssSelector("li:first-child"));
 
         }
