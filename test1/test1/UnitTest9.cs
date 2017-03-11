@@ -64,17 +64,27 @@ namespace test1
 
                     for (int j = 0; j < internalrows.Count - 1; j++)
                     {
-                       
 
-                        int result2 = String.Compare(internalrows[j].GetAttribute("textContent"), internalrows[j + 1].GetAttribute("textContent"));
 
-                        if (!comparing(result2)) throw new Exception("improper sorting");
+                        try
+                        {
+                            int result2 = String.Compare(internalrows[j].GetAttribute("textContent"), internalrows[j + 1].GetAttribute("textContent"));
 
-                            
+                            if (!comparing(result2))
+                                throw new Exception("improper sorting");
+                        }
 
-                        driver.Url = "http://localhost/litecart/admin/?app=countries&doc=countries";
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+
+                          
 
                     }
+
+                    driver.Url = "http://localhost/litecart/admin/?app=countries&doc=countries";
+                    rows = driver.FindElements(By.CssSelector("[name=countries_form] .row "));
                 }
 
             }
