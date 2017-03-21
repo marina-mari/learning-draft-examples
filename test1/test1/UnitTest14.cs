@@ -24,7 +24,7 @@ namespace UnitTestProject1
         public void start()
         {
             driver = new ChromeDriver();
-            //driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
             driver.Url = "http://localhost/litecart/en/";
 
 
@@ -38,47 +38,101 @@ namespace UnitTestProject1
             {
                 var firstduck = driver.FindElement(By.CssSelector("#box-most-popular img"));
                 firstduck.Click();
+
+
+                findselect(driver);
+
+
                 IJavaScriptExecutor jse = driver as IJavaScriptExecutor;
+                System.Threading.Thread.Sleep(1000);
 
                 jse.ExecuteScript("document.querySelector(\"button[name='add_cart_product']\").click()");
+                System.Threading.Thread.Sleep(1000);
 
                 //jse.ExecuteScript("document.querySelector(\"button[value='Add To Cart']\").click()");
-                
+
                 var counter = driver.FindElement(By.XPath("//span [@class='quantity']"));
                 int countertext = Convert.ToInt32(counter.GetAttribute("textContent"));
-                countertext = countertext + 1;
+               
                 string scountertext = Convert.ToString(countertext);
 
-                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+               WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
 
-                wait.Until(ExpectedConditions.TextToBePresentInElementValue(counter, scountertext));
-                driver.Url = "http ://localhost/litecart/en/";
+               wait.Until(ExpectedConditions.TextToBePresentInElement(counter, scountertext));
+
 
                 if (i == 2)
                 {
-                    for (int j = 0; j < 3; i++)
-                    {
-                        Remove(driver, wait);
-                    }
+                    driver.FindElement(By.XPath("//a [contains (., 'Checkout')]")).Click();
+                    System.Threading.Thread.Sleep(1000);
 
+                    for (int j = 0; j < 3; j++)
+                    {
+
+                        Remove(driver, wait);
+
+                    }
                 }
+
+                driver.Url = "http://localhost/litecart/en/";
 
             }
         }
 
+
+
+
             public static void Remove(IWebDriver driver, WebDriverWait wait)
         {
-            driver.FindElement(By.XPath("//a [contains (., 'Checkout')]")).Click();
+                bool isfinalpage = findfinalpage(driver);
+                if (!isfinalpage)
+                {
+                    var row1 = driver.FindElement(By.CssSelector("#order_confirmation-wrapper tr:nth-child(2) "));
+                    wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
 
-            driver.FindElement(By.XPath("//button [contains (., 'Remove')]")).Click();
+                    wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//button [contains (., 'Remove')]"))).Click();
 
-            var ammount = driver.FindElements(By.CssSelector("#order_confirmation-wrapper .footer td strong:nth-child(2)"))[1];
+                   // driver.FindElement(By.XPath("//button [contains (., 'Remove')]")).Click();
 
-            wait.Until(ExpectedConditions.StalenessOf(ammount));
 
-        
+                    wait.Until(ExpectedConditions.StalenessOf(row1));
+                }
         }
 
+        public static bool findfinalpage (IWebDriver driver)
+        {
+            try
+            {
+                IJavaScriptExecutor jse = driver as IJavaScriptExecutor;
+                //jse.ExecuteScript("document.querySelector(\"div[id='checkout-cart-wrapper']\").click()");
+                var finalpage = driver.FindElement(By.XPath("//em [contains (., 'There are no items in your cart.')]"));
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        
+
+        public static void findselect (IWebDriver driver)
+        {
+            try
+            {
+                var select = driver.FindElement(By.XPath("//*[@name = 'options[Size]']"));
+
+                var selectElemnt = new SelectElement(select);
+                System.Threading.Thread.Sleep(2000);
+                selectElemnt.SelectByIndex(2);
+
+                System.Threading.Thread.Sleep(3000);
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
         
     
         [TearDown]
