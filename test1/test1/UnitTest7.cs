@@ -16,7 +16,7 @@ namespace test1
         public void start()
         {
             driver = new ChromeDriver();
-            driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));
+           // driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));
 
         }
 
