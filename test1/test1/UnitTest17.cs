@@ -9,7 +9,6 @@ using System.Collections;
 using static NUnit.Framework.Assert;
 using System.Diagnostics;
 using OpenQA.Selenium.Support.UI;
-
 using System.IO;
 using System.Reflection;
 
