@@ -74,6 +74,7 @@
     <Compile Include="UnitTest17.cs" />
     <Compile Include="UnitTest19.cs" />
     <Compile Include="UnitTest2.cs" />
+    <Compile Include="UnitTest20.cs" />
     <Compile Include="UnitTest3.cs" />
     <Compile Include="UnitTest4.cs" />
     <Compile Include="UnitTest5.cs" />

@@ -60,6 +60,10 @@ namespace test1
 				separate_link.Click();
 
 				// wait when new window appears
+				//WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
+				//wait.Until(ThereIsNewWindow(main_first_window));
+
+				System.Threading.Thread.Sleep(2000);
 
 				verify_new_window(driver, main_first_window);
 
@@ -87,9 +91,16 @@ namespace test1
 					driver.Close();
 				}
 			}
-			
-			
+
+
+
+
+
 		}
+
+		//public static bool ThereIsNewWindow(string main_first_window)
+		//{
+		//}
 
 		public static void return_in_main_window(IWebDriver driver, string main_first_window)
 		{
@@ -105,9 +116,9 @@ namespace test1
 				System.Diagnostics.Trace.Write(ex);
 			}
 
-
-
 		}
+
+		
 
 
 

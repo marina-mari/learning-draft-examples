@@ -24,7 +24,7 @@ namespace test1
         public void setup()
         {
             driver = new ChromeDriver();
-            driver.Url = "http://localhost/litecart/admin/";
+            driver.Url = "http://localhost:8080/litecart/admin/";
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
             auth(driver);
         }
@@ -127,7 +127,8 @@ namespace test1
         [TearDown]
         public void quit()
         {
-
+			driver.Quit();
+			driver = null;
         }
 
     }
