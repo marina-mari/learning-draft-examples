@@ -11,6 +11,7 @@ using System.Diagnostics;
 using OpenQA.Selenium.Support.UI;
 using System.IO;
 using System.Reflection;
+using OpenQA.Selenium.IE;
 
 namespace test1
 {
@@ -18,14 +19,26 @@ namespace test1
 	public class UnitTest19
 	{
 		IWebDriver driver;
+		OpenQA.Selenium.Proxy proxy;
 
 		[SetUp]
 		public void TestMethod1()
 		{
-			driver = new ChromeDriver();
+			// configure proxy in order to enable driver works via Fiddler on 8888 port
+			// to see difference - switch off proxy on Windows-System level, in "internet properties" dialog on "Connection"
+			// tab click "Lan" and untick checkbox "using proxy" and at the same time - add the code below in the test
+
+			proxy = new OpenQA.Selenium.Proxy();
+			proxy.Kind = ProxyKind.Manual;
+		 proxy.HttpProxy = "127.0.0.1:8888";
+		ChromeOptions options = new ChromeOptions();
+			options.Proxy = proxy;
+			driver = new ChromeDriver (options);
+			//driver = new ChromeDriver();
 			driver.Url = "http://localhost:8080/litecart/admin/?app=countries&doc=countries";
 			driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
 			auth(driver);
+			
 		}
 
 		public void auth(IWebDriver driver)

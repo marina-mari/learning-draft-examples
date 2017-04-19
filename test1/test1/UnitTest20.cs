@@ -12,6 +12,8 @@ using System.Diagnostics;
 using OpenQA.Selenium.Support.UI;
 using System.IO;
 using System.Reflection;
+using Fiddler;
+
 
 namespace test1
 {
@@ -20,9 +22,13 @@ namespace test1
 	{
 
 		EventFiringWebDriver driver;
+		
+		
 		[SetUp]
 		public void Start()
 		{
+			
+
 			driver = new EventFiringWebDriver( new ChromeDriver());
 			//driver.FindingElement += Driver_FindingElement;
 			driver.FindingElement += (sender, e) => Console.WriteLine(e.FindMethod);
